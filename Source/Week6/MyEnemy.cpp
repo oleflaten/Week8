@@ -36,25 +36,9 @@ void AMyEnemy::Tick(float DeltaTime)
 
 	//Movement each tick - scaled with DeltaTime
 	FVector CurrentLocation = GetActorLocation();
-	int temp = SpawnerPtr->Direction;
-	switch (temp)
-	{
-	case 0:
-		CurrentLocation += GetActorForwardVector() * MoveSpeed * DeltaTime;
-		break;
-	case 1:
-		CurrentLocation += GetActorRightVector() * MoveSpeed * DeltaTime;
-		break;
-	case 2:
-		CurrentLocation += GetActorForwardVector() * MoveSpeed * DeltaTime;
-		break;
-	case 3:
-		CurrentLocation -= GetActorRightVector() * MoveSpeed * DeltaTime;
-		break;
 
-	default:
-		break;
-	}
+	CurrentLocation += GetActorForwardVector() * MoveSpeed * DeltaTime;
+
 	SetActorLocation(CurrentLocation);
 }
 

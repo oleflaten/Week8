@@ -22,25 +22,6 @@ void ASpawner::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SpawnEnemies();
-}
-
-void ASpawner::SpawnEnemies()
-{
-	UWorld* World = GetWorld();
-	if (World && EnemyBlueprint)			//check if World is valid
-	{
-		FVector Offset{ 0.f };
-		AMyEnemy* tempPtr{nullptr};
-		for (int i{0}; i < EnemiesToSpawn; i++)
-		{	
-			//Spawns bullet at Player location + SpawnPoint 
-			Offset.Y += DistanceBetweenEnemies;
-			tempPtr = World->SpawnActor<AMyEnemy>(EnemyBlueprint, GetActorLocation() + Offset, GetActorRotation());
-			if(tempPtr) // <-this is actually necessary! Why ??? :-)
-				tempPtr->SpawnerPtr = this;
-		}
-	}
 }
 
 // Called every frame
@@ -52,10 +33,10 @@ void ASpawner::Tick(float DeltaTime)
 	if (TimeGone > TimeBetweenSpawns)
 	{
 		TimeGone = 0.f;
-		if(Direction == 0 || Direction == 2)
-			SpawnEnemies();
-	
-		(Direction == 3) ? Direction = 0 : Direction++;
-		UE_LOG(LogTemp, Warning, TEXT("Direction: %d"), Direction)
+		UWorld* World = GetWorld();
+		if (World && EnemyBlueprint)			//check if World is valid
+		{
+			 World->SpawnActor<AMyEnemy>(EnemyBlueprint, GetActorLocation(), GetActorRotation());
+		}
 	}
 }
