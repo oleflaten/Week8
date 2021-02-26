@@ -12,10 +12,7 @@ AMyPawn::AMyPawn()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Create a dummy root component we can attach things to.
-	OurCollider = CreateDefaultSubobject<USphereComponent>(TEXT("MyCollider"));
-	RootComponent = OurCollider;
-
-	OurCollider->SetGenerateOverlapEvents(true);
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 
 	OurVisibleComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("OurVisibleComponent"));
 	OurVisibleComponent->SetupAttachment(RootComponent);
@@ -40,9 +37,8 @@ void AMyPawn::Tick(float DeltaTime)
 
 	//Positioin of Player is updated every tick by the size of CurrentVelocity
 	//If CurrentVelocity == 0 no movement will happen
-	//FVector NewLocation = GetActorLocation() + (CurrentVelocity * DeltaTime);
-	//SetActorLocation(NewLocation, true);
-	AddActorLocalOffset((CurrentVelocity * DeltaTime), true);
+	FVector NewLocation = GetActorLocation() + (CurrentVelocity * DeltaTime);
+	SetActorLocation(NewLocation);
 }
 
 // Called to bind functionality to input

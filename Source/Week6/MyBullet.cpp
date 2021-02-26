@@ -20,7 +20,6 @@ AMyBullet::AMyBullet()
 	//Explicit setting this to true, since we definitely need it for this component
 	//Should be true as default, but just to make sure:
 	OurCollider->SetGenerateOverlapEvents(true);
-	OurCollider->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 
 	//Attaching the visual mesh
 	OurVisibleComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("OurVisibleComponent"));
@@ -52,10 +51,9 @@ void AMyBullet::Tick(float DeltaTime)
 	}
 	else   //all good - move bullet
 	{
-		//FVector NewLocation = GetActorLocation();
-		//NewLocation += GetActorForwardVector() * Speed * DeltaTime;
-		//SetActorLocation(NewLocation, true);
-		AddActorLocalOffset(GetActorForwardVector() * Speed * DeltaTime, true);
+		FVector NewLocation = GetActorLocation();
+		NewLocation += GetActorForwardVector() * Speed * DeltaTime;
+		SetActorLocation(NewLocation);
 	}
 }
 

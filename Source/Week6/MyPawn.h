@@ -19,9 +19,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "Setup");
-	class USphereComponent* OurCollider{ nullptr };
-
 	//The mesh - assigned inside Unreal Editor
 	UPROPERTY(EditAnywhere, Category = "Setup");
 	USceneComponent* OurVisibleComponent{ nullptr };
