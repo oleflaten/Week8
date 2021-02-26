@@ -15,7 +15,6 @@ ASpawner::ASpawner()
 
 	OurVisibleComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("OurVisibleComponent"));
 	OurVisibleComponent->SetupAttachment(RootComponent);
-
 }
 
 // Called when the game starts or when spawned
@@ -24,7 +23,6 @@ void ASpawner::BeginPlay()
 	Super::BeginPlay();
 
 	SpawnEnemies();
-
 }
 
 void ASpawner::SpawnEnemies()
@@ -54,10 +52,10 @@ void ASpawner::Tick(float DeltaTime)
 	if (TimeGone > TimeBetweenSpawns)
 	{
 		TimeGone = 0.f;
-		//if(Direction == 0 || Direction == 2)
+		if(Direction == 0 || Direction == 2)
 			SpawnEnemies();
 	
-		//(Direction == 3) ? Direction = 0 : Direction++;
-		//UE_LOG(LogTemp, Warning, TEXT("Direction: %d"), Direction)
+		(Direction == 3) ? Direction = 0 : Direction++;
+		UE_LOG(LogTemp, Warning, TEXT("Direction: %d"), Direction)
 	}
 }
